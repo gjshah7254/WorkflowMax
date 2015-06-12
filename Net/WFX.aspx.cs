@@ -92,7 +92,7 @@ public partial class WFX : System.Web.UI.Page
     {
         #region staffList
         XmlNodeList xmlItems = xml.SelectNodes("/Response/StaffList/Staff");
-        Response.Write("<table class='table table-hover table-bordered table-striped'><tr><th width='300px'>Name</th><th width='300px'>Billable (MIN)</th><th width='300px'>Non Billable (MIN)</th><th width='300px'>Total (MIN)</th></tr>");
+        Response.Write("<table class='table table-hover table-bordered table-striped'><tr><th width='300px'>Name</th><th width='300px'>Billable (HRS)</th><th width='300px'>Non Billable (HRS)</th><th width='300px'>Total (HRS)</th></tr>");
         foreach (XmlNode xmlItem in xmlItems)
         {
             string Name = xmlItem["Name"].InnerText;
