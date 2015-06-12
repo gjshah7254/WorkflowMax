@@ -92,7 +92,7 @@ public partial class WFX : System.Web.UI.Page
     {
         #region staffList
         XmlNodeList xmlItems = xml.SelectNodes("/Response/StaffList/Staff");
-        Response.Write("<table><tr><td width='300px'>Name</td><td width='300px'>Billable (MIN)</td><td width='300px'>Non Billable (MIN)</td><td width='300px'>Total (MIN)</td></tr>");
+        Response.Write("<table class='table table-hover table-bordered table-striped'><tr><th width='300px'>Name</th><th width='300px'>Billable (MIN)</th><th width='300px'>Non Billable (MIN)</th><th width='300px'>Total (MIN)</th></tr>");
         foreach (XmlNode xmlItem in xmlItems)
         {
             string Name = xmlItem["Name"].InnerText;
@@ -156,8 +156,17 @@ public partial class WFX : System.Web.UI.Page
             totalTime = totalTime + Minutes;
         }
 
-        Response.Write(string.Format("<td>{0}</td><td>{1}</td><td>{2}</td>", billableTime.ToString(), nonBillableTime.ToString(), totalTime.ToString()));
+        Response.Write(string.Format("<td>{0}</td><td>{1}</td><td>{2}</td>", ConvertHours(billableTime), ConvertHours(nonBillableTime), ConvertHours(totalTime)));
         #endregion
+    }
+
+    private string ConvertHours(int minutes)
+    {
+        var timeSpan = TimeSpan.FromMinutes(minutes);
+        int hh = timeSpan.Hours;
+        int mm = timeSpan.Minutes;
+
+        return string.Format("{0}:{1}", hh.ToString(), mm.ToString());
     }
 
     public void timeListProcessResponse(XmlDocument xml)//pass in from and to date paramters
