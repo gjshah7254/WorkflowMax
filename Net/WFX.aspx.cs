@@ -38,7 +38,7 @@ public partial class WFX : System.Web.UI.Page
         {
             lblError.Visible = true;
             lblError.Text = "<span class='has-error'>Please enter dates.<br /></span>";
-        }        
+        }
     }
 
     private void GetStaffList()
@@ -92,7 +92,7 @@ public partial class WFX : System.Web.UI.Page
     {
         #region staffList
         XmlNodeList xmlItems = xml.SelectNodes("/Response/StaffList/Staff");
-        Response.Write("<table><tr><td width='300px'>Name</td><td width='300px'>Billable (MIN)</td><td width='300px'>Non Billable (MIN)</td></tr>");
+        Response.Write("<table><tr><td width='300px'>Name</td><td width='300px'>Billable (MIN)</td><td width='300px'>Non Billable (MIN)</td><td width='300px'>Total (MIN)</td></tr>");
         foreach (XmlNode xmlItem in xmlItems)
         {
             string Name = xmlItem["Name"].InnerText;
@@ -110,7 +110,7 @@ public partial class WFX : System.Web.UI.Page
     {
         #region SingleStaff
         XmlNodeList xmlItems = xml.SelectNodes("/Response/Staff");
-        
+
         foreach (XmlNode xmlItem in xmlItems)
         {
             string Name = xmlItem["Name"].InnerText;
@@ -119,13 +119,13 @@ public partial class WFX : System.Web.UI.Page
             string querystring = string.Format("from={0}&to={1}", txtDateFrom.Text, txtDateTo.Text);
             Response.Write("<tr>");
             Response.Write("<td>" + Name + "</td>");
-            
+
             string xmlItemsRequest = CreateRequest(timeGetStaffUrl + "/" + ID, querystring);
             XmlDocument staffXml = MakeRequest(xmlItemsRequest);
             timeGetStaffProcessResponse(staffXml);
             Response.Write("</tr>");
         }
-        
+
         #endregion
     }
 
@@ -136,6 +136,7 @@ public partial class WFX : System.Web.UI.Page
 
         int billableTime = 0;
         int nonBillableTime = 0;
+        int totalTime = 0;
 
         foreach (XmlNode xmlItem in xmlItems)
         {
@@ -151,9 +152,11 @@ public partial class WFX : System.Web.UI.Page
             {
                 nonBillableTime = nonBillableTime + Minutes;
             }
+
+            totalTime = totalTime + Minutes;
         }
 
-        Response.Write(string.Format("<td>{0}</td><td>{1}</td>", billableTime.ToString(), nonBillableTime.ToString()));
+        Response.Write(string.Format("<td>{0}</td><td>{1}</td><td>{2}</td>", billableTime.ToString(), nonBillableTime.ToString(), totalTime.ToString()));
         #endregion
     }
 
@@ -168,5 +171,4 @@ public partial class WFX : System.Web.UI.Page
         }
         #endregion
     }
-
 }
