@@ -68,11 +68,8 @@ public partial class WFX : System.Web.UI.Page
             return (xmlDoc);
 
         }
-        catch (Exception e)
+        catch
         {
-            Console.WriteLine(e.Message);
-
-            Console.Read();
             return null;
         }
     }
