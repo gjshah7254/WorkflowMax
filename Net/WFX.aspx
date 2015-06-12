@@ -1,16 +1,12 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="WFX.aspx.cs" Inherits="WFX" %>
+﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeFile="WFX.aspx.cs" Inherits="WFX" %>
 
-<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
-    <div>
-    
-    </div>
-    </form>
-</body>
-</html>
+<asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
+    <br /><br />
+        <p>Date From: <asp:TextBox ID="txtDateFrom" runat="server"></asp:TextBox></p>
+        <p>Date To: <asp:TextBox ID="txtDateTo" runat="server"></asp:TextBox></p>
+
+        <asp:Label ID="lblError" runat="server" Text="Label" Visible="false"></asp:Label>
+
+        <asp:Button ID="btnGetTimeForAllStaff" runat="server" Text="GetTimeForAllStaff" OnClick="btnGetTimeForAllStaff_Click" />
+    </asp:Content>
